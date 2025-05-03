@@ -54,6 +54,16 @@ const config = {
         hostname: "raw.githubusercontent.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+      },
     ],
   },
 };

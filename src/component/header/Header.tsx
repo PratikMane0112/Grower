@@ -1,6 +1,7 @@
 import { useClickOutside } from "@mantine/hooks";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 import { NotAuthenticatedProfileDropdown, ProfileDropdown } from "../dropdown";
 import { LeftArea } from "../miniComponent";
@@ -8,7 +9,7 @@ import SearchArea from "../miniComponent/Search/Search";
 import RightArea from "./RightAreaHeader";
 
 const Header: React.FC<{ search?: boolean }> = ({ search = true }) => {
-  const { data: user } = useSession();
+  const { data: user, status } = useSession();
   const [opened, setOpened] = useState(false);
 
   const [control, setControl] = useState<HTMLDivElement | null>(null);
@@ -27,8 +28,17 @@ const Header: React.FC<{ search?: boolean }> = ({ search = true }) => {
           {search && <SearchArea />}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <RightArea />
+
+          {/* Get Started button - only visible when not signed in */}
+          {status !== "authenticated" && (
+            <Link href="/onboard">
+              <button className="hidden rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700 sm:block">
+                Get Started
+              </button>
+            </Link>
+          )}
 
           <div className="relative rounded-full">
             <div ref={setControl}>
