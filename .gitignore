@@ -4,11 +4,18 @@
 /node_modules
 /.pnp
 .pnp.js
+.yarn/install-state.gz
 
 # testing
 /coverage
+/.nyc_output
+/cypress/videos/
+/cypress/screenshots/
 
 # database
+*.sqlite
+*.sqlite3
+*.db
 
 # next.js
 /.next/
@@ -17,10 +24,14 @@ next-env.d.ts
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
 *.pem
+Thumbs.db
+desktop.ini
+.directory
 
 # debug
 npm-debug.log*
@@ -29,9 +40,13 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
-# do not commit any .env files to git, except for the .env.example file. https://create.t3.gg/en/usage/env-variables#using-environment-variables
+# do not commit any .env files to git, except for the .env.example file
 .env
 .env*.local
+.env.development
+.env.test
+.env.production
+.env.local
 
 # vercel
 .vercel
@@ -39,11 +54,36 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
+# IDE specific files
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
+# Logs
+logs
+*.log
+
+# Stripe sensitive files
+stripecli/
+stripe.exe
+.stripe/
+/stripe-samples/
+.stripe.config.json
+
+# Project specific
 /bot-playground
 /public/svgs
 /scrapper
-/.env.production
 /todo.txt
 /data
 /test.html
@@ -51,3 +91,26 @@ yarn-error.log*
 /drizzle
 /important_deprecated_idea.txt
 /temp
+
+# Caches and temp files
+.eslintcache
+.stylelintcache
+.cache
+.parcel-cache
+.turbo
+.next-tf
+
+# OS generated files
+.DS_Store*
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Backup & report files
+*.bak
+*.swp
+*.tmp
+*~
+*.map
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

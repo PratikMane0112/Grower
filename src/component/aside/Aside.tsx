@@ -1,4 +1,5 @@
 import { TrendingUp } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { type FC } from "react";
 import { FilterTimeOption } from "~/hooks/useFilter";
 import { api } from "~/utils/api";
@@ -49,9 +50,11 @@ const Aside = () => {
 export default Aside;
 
 const Navigations = () => {
+  const { data: session } = useSession();
+  
   return (
     <div className="pb-2">
-      {asideItems.map((item, index) => {
+      {asideItems(session).map((item, index) => {
         return item.type !== "link" ? (
           <AsideNavigation key={index} item={item} />
         ) : (

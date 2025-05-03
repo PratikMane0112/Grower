@@ -24,6 +24,7 @@ import {
 import { v4 as uuid } from "uuid";
 import { env } from "~/env.mjs";
 import { Dailydev, Discord, LogonoText, Mastodon } from "~/svgs";
+import { type Session } from "next-auth";
 
 export const slugSetting = {
   lower: true,
@@ -33,40 +34,48 @@ export const slugSetting = {
   locale: "en",
 };
 
-export const asideItems = [
-  {
-    name: "Explore",
-    icon: (
-      <Compass className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
-    ),
-    href: "/explore",
-    type: "link",
-  },
-  {
-    name: "Bookmarks",
-    icon: (
-      <Bookmark className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
-    ),
-    href: "/bookmarks",
-    type: "link",
-  },
-  {
-    name: "Posts",
-    icon: (
-      <Laptop2 className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
-    ),
-    href: "#",
-    type: "link",
-  },
-  {
-    name: "Mentors",
-    icon: (
-      <Users className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
-    ),
-    href: "#",
-    type: "link",
-  },
-];
+export const asideItems = (session?: Session | null) => {
+  const baseItems = [
+    {
+      name: "Explore",
+      icon: (
+        <Compass className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
+      ),
+      href: "/explore",
+      type: "link",
+    },
+    {
+      name: "Bookmarks",
+      icon: (
+        <Bookmark className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
+      ),
+      href: "/bookmarks",
+      type: "link",
+    },
+    {
+      name: "Posts",
+      icon: (
+        <Laptop2 className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
+      ),
+      href: "#",
+      type: "link",
+    },
+  ];
+  
+  // Only add Mentors item if user is logged in and has startup role
+  if (session?.user?.role === "startup") {
+    baseItems.push({
+      name: "Mentors",
+      icon: (
+        <Users className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
+      ),
+      href: "#",
+      type: "link",
+    });
+  }
+  
+  return baseItems;
+};
 
 const environmentUrl = env.NEXT_PUBLIC_VERCEL_URL;
 

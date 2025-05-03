@@ -9,7 +9,7 @@ const HamburgerMenu: FC<{
   menu: boolean;
   setMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ menu, setMenu }) => {
-  const { data: user } = useSession();
+  const { data: session } = useSession();
 
   return (
     <>
@@ -38,7 +38,7 @@ const HamburgerMenu: FC<{
           <section className="flex flex-1 flex-col bg-light-bg px-4 shadow-md dark:bg-primary">
             <div className="flex flex-1 flex-col py-4">
               <ul className="mb-4 border-b border-border-light pb-4 dark:border-border">
-                {asideItems.map((item, index) => (
+                {asideItems(session).map((item, index) => (
                   <li key={index}>
                     <Link href={item.href}>
                       <div className="rounded-md px-4 py-3 text-base font-medium tracking-wide text-gray-700 hover:bg-gray-200 dark:text-text-secondary dark:hover:bg-primary-light">
@@ -50,7 +50,7 @@ const HamburgerMenu: FC<{
               </ul>
               <div className="flex-1">
                 <Link href={
-                  user ? "/article/new" : "/onboard"
+                  session ? "/article/new" : "/onboard"
                 }>
                   <div className="flex items-center gap-2 rounded-md px-4 py-2 text-base tracking-wide text-gray-700 hover:bg-gray-200 dark:text-text-secondary dark:hover:bg-primary-light">
                     <Sparkles className="h-5 w-5 stroke-secondary" />
@@ -59,7 +59,7 @@ const HamburgerMenu: FC<{
                 </Link>
               </div>
             </div>
-            {!user?.user && (
+            {!session?.user && (
               <div className="mt-16 flex flex-wrap justify-center gap-2 p-4">
                 <button className="btn-filled w-full">Sign In</button>
                 <button className="btn-outline w-full">Sign Up</button>
