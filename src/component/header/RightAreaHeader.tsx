@@ -15,6 +15,7 @@ const RightArea: FC = () => {
   const { data: user } = useSession();
   const [opened, setOpened] = useState(false);
   const router = useRouter();
+  const isUserStartup = user?.user?.role === "startup";
 
   const [control, setControl] = useState<HTMLDivElement | null>(null);
   const [dropdown, setDropdown] = useState<HTMLDivElement | null>(null);
@@ -50,7 +51,7 @@ const RightArea: FC = () => {
 
   return (
     <>
-      {!!user && (
+      {!!user && isUserStartup && (
         <>
           <Link href={user.user.handle ? "/article/new" : `/onboard/blog/setup?redirect=/article/new`}>
             <button

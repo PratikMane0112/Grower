@@ -1,7 +1,24 @@
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const ManageBlogs = () => {
   const { data: session } = useSession();
+  const router = useRouter();
+  const isUserStartup = session?.user?.role === "startup";
+
+  // Redirect non-startup users away from this page
+  useEffect(() => {
+    if (session && !isUserStartup) {
+      router.push("/settings");
+    }
+  }, [session, isUserStartup, router]);
+
+  // Don't render anything if the user isn't a startup
+  if (!isUserStartup) {
+    return null;
+  }
+
   return (
     <>
       <header className="pb-4 border-b border-border-light dark:border-border">
@@ -13,7 +30,6 @@ const ManageBlogs = () => {
       <main className="py-4">
         <table className="table w-full table-auto border-separate border-spacing-0 border border-border-light dark:border-border rounded-lg overflow-hidden">
           <thead>
-
             <tr className="text-sm text-left bg-slate-100 dark:bg-primary-light">
               <th scope="col" className="px-6 py-3.5 rounded-tl-lg font-bold text-slate-600 dark:text-slate-300">Blogs</th>
               <th scope="col" className="px-6 py-3.5 font-bold text-slate-600 dark:text-slate-300 whitespace-nowrap">Blog Type</th>

@@ -1,9 +1,12 @@
 import { Mail, Settings, Table2, User, Wand2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from 'next/router';
+import { useSession } from "next-auth/react";
 
 const UserDetailsOptions = () => {
   const { tab } = useRouter().query;
+  const { data: session } = useSession();
+  const isUserStartup = session?.user?.role === "startup";
 
   return (
     <div className="rounded-md border py-2 border-border-light bg-white dark:border-border dark:bg-primary">
@@ -32,18 +35,23 @@ const UserDetailsOptions = () => {
             </div>
           </Link>
         </li>
-        <li className="w-full">
-          <Link href="/settings/manage-blogs">
-            <div className={`cursor-pointer px-4 py-3 text-base font-semibold hover:bg-gray-200 dark:hover:bg-border flex flex-row items-center gap-2 ${tab?.length === 1 && tab[0] === "manage-blogs" ? "text-secondary" : " text-gray-600 dark:text-text-primary"}`}>
-              <span>
-                <Table2 className={`w-5 h-5 ${tab?.length === 1 && tab[0] === "manage-blogs" ? "stroke-secondary" : " stroke-gray-600 dark:stroke-text-primary"}`} />
-              </span>
-              <span>
-                MANAGE BLOGS
-              </span>
-            </div>
-          </Link>
-        </li>
+        
+        {/* Only show Manage Blogs option for users with the startup role */}
+        {isUserStartup && (
+          <li className="w-full">
+            <Link href="/settings/manage-blogs">
+              <div className={`cursor-pointer px-4 py-3 text-base font-semibold hover:bg-gray-200 dark:hover:bg-border flex flex-row items-center gap-2 ${tab?.length === 1 && tab[0] === "manage-blogs" ? "text-secondary" : " text-gray-600 dark:text-text-primary"}`}>
+                <span>
+                  <Table2 className={`w-5 h-5 ${tab?.length === 1 && tab[0] === "manage-blogs" ? "stroke-secondary" : " stroke-gray-600 dark:stroke-text-primary"}`} />
+                </span>
+                <span>
+                  MANAGE BLOGS
+                </span>
+              </div>
+            </Link>
+          </li>
+        )}
+        
         <li className="w-full">
           <Link href="/settings/account">
             <div className={`cursor-pointer px-4 py-3 text-base font-semibold hover:bg-gray-200 dark:hover:bg-border flex flex-row items-center gap-2 ${tab?.length === 1 && tab[0] === "account" ? "text-secondary" : " text-gray-600 dark:text-text-primary"}`}>

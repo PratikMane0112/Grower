@@ -73,7 +73,6 @@ const Onboard = () => {
           <div className="container mx-auto flex items-center justify-between p-4 relative z-10">
             <Link href="/" className="flex items-center gap-2">
               <Logo className="h-9 fill-secondary" />
-              <span className="hidden text-xl font-semibold text-gray-900 dark:text-white sm:block">Grower</span>
             </Link>
             
             <div className="flex items-center gap-4">
@@ -246,6 +245,36 @@ const Onboard = () => {
                       </div>
                     </div>
                   </div>
+
+                  {selectedRole === "startup" && (
+                    <div className="mt-12 rounded-xl bg-green-50 p-6 dark:bg-green-900/20">
+                      <h3 className="mb-4 text-xl font-bold text-green-900 dark:text-green-300">Startup Blog</h3>
+                      <p className="text-gray-600 dark:text-gray-400">Read the latest articles and insights for startups.</p>
+                      <Link href="/blog/startup" className="mt-4 inline-block text-green-600 hover:text-green-500 dark:text-green-400">
+                        Go to Startup Blog
+                      </Link>
+                    </div>
+                  )}
+
+                  {selectedRole === "mentor" && (
+                    <div className="mt-12 rounded-xl bg-yellow-50 p-6 dark:bg-yellow-900/20">
+                      <h3 className="mb-4 text-xl font-bold text-yellow-900 dark:text-yellow-300">Mentor Blog</h3>
+                      <p className="text-gray-600 dark:text-gray-400">Read the latest articles and insights for mentors.</p>
+                      <Link href="/blog/mentor" className="mt-4 inline-block text-yellow-600 hover:text-yellow-500 dark:text-yellow-400">
+                        Go to Mentor Blog
+                      </Link>
+                    </div>
+                  )}
+
+                  {selectedRole === "investor" && (
+                    <div className="mt-12 rounded-xl bg-red-50 p-6 dark:bg-red-900/20">
+                      <h3 className="mb-4 text-xl font-bold text-red-900 dark:text-red-300">Investor Blog</h3>
+                      <p className="text-gray-600 dark:text-gray-400">Read the latest articles and insights for investors.</p>
+                      <Link href="/blog/investor" className="mt-4 inline-block text-red-600 hover:text-red-500 dark:text-red-400">
+                        Go to Investor Blog
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

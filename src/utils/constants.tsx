@@ -1,10 +1,14 @@
 import {
+  ArrowUpRight,
+  AtSign,
   Book,
   Bookmark,
+  Code2,
   Compass,
   Github,
   Globe,
   Heart,
+  Home,
   Instagram,
   Laptop2,
   Linkedin,
@@ -16,10 +20,10 @@ import {
   Search,
   Settings,
   Table2,
+  TrendingUp,
   Twitter,
   User,
-  Users,
-  Youtube,
+  Youtube
 } from "lucide-react";
 import { v4 as uuid } from "uuid";
 import { env } from "~/env.mjs";
@@ -37,6 +41,14 @@ export const slugSetting = {
 export const asideItems = (session?: Session | null) => {
   const baseItems = [
     {
+      name: "Home",
+      icon: (
+        <Home className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
+      ),
+      href: "/",
+      type: "link",
+    },
+    {
       name: "Explore",
       icon: (
         <Compass className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
@@ -52,22 +64,26 @@ export const asideItems = (session?: Session | null) => {
       href: "/bookmarks",
       type: "link",
     },
-    {
+  ];
+  
+  // Only add Posts item if user is logged in and has startup role
+  if (session?.user?.role === "startup") {
+    baseItems.push({
       name: "Posts",
       icon: (
         <Laptop2 className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
       ),
       href: "#",
       type: "link",
-    },
-  ];
+    });
+  }
   
   // Only add Mentors item if user is logged in and has startup role
   if (session?.user?.role === "startup") {
     baseItems.push({
       name: "Mentors",
       icon: (
-        <Users className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
+        <User className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
       ),
       href: "#",
       type: "link",

@@ -1,84 +1,86 @@
 import { Newspaper } from "lucide-react";
-import type { Session } from "next-auth";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext } from "react";
+import React, { forwardRef } from "react";
 import { profileDropdownList } from "~/utils/constants";
 
-import { C } from "~/utils/context";
-
-const imageDropdown = React.forwardRef<
+const ProfileDropdown = forwardRef<
   HTMLDivElement,
   {
-    user: Session | null;
     setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+    setSearchOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+    user: any;
   }
->(({ user, setOpened }, ref) => {
-  const { setSearchOpen } = useContext(C)!;
+>(({ setOpened, setSearchOpen = () => { }, user }, ref) => {
   const router = useRouter();
+  const isUserStartup = user?.user?.role === "startup";
 
-  const logout = async () => {
-    await signOut({ callbackUrl: "/" });
+  // Proper logout function using signOut from next-auth
+  const handleLogout = () => {
+    void signOut({ callbackUrl: '/' });
   };
 
   return (
     <div
       ref={ref}
-      className="absolute right-0 top-full z-20 mt-2 w-64 rounded-md border border-border-light bg-gray-50 py-2 text-left shadow-lg dark:border-border dark:bg-primary"
+      className="absolute right-0 top-full mt-2 w-60 overflow-hidden rounded-md border border-border-light bg-white shadow-lg dark:border-border dark:bg-primary sm:w-72"
     >
-      <Link href={`/u/@${user?.user.username} `}>
-        <div className="flex w-full cursor-pointer items-center gap-2 px-4 py-2 hover:bg-gray-200 dark:hover:bg-primary-light">
+      <Link
+        href={`/u/@${user?.user?.username}`}
+        onClick={() => setOpened(false)}
+      >
+        <div className="flex cursor-pointer items-center gap-2 border-b border-border-light px-4 py-3 hover:bg-light-bg dark:border-border dark:hover:bg-primary-light">
           <Image
-            src={user?.user.image ?? "/static/default_user.avif"}
+            src={user?.user.image}
             alt={user?.user.name ?? "user"}
             width={100}
             height={100}
             className="h-10 w-10 rounded-full object-cover"
             draggable={false}
           />
-          <div>
-            <h1 className="text-sm font-semibold dark:text-text-secondary">
+          <div className="flex-1">
+            <h1 className="max-height-one text-base font-semibold dark:text-text-secondary">
               {user?.user.name}
             </h1>
-            <h2 className="text-sm text-gray-600 dark:text-text-primary">
+            <div className="text-sm text-gray-500 dark:text-text-primary">
               @{user?.user.username}
-            </h2>
+            </div>
           </div>
         </div>
       </Link>
 
-      <div className="my-2 h-[1px] w-full bg-border-light dark:bg-border" />
-
-      {user?.user.handle ? (
-        <div>
-          <h1 className="mb-1 px-4 text-xs font-semibold text-gray-500 dark:text-text-primary">
-            Personal Blogs
-          </h1>
-          <Link href={`/${user.user.id}/dashboard`}>
-            <div className="px-4 py-2 hover:bg-gray-200 hover:dark:bg-border">
-              <h1 className="max-height-one text-sm text-gray-700 dark:text-text-secondary">
-                {`${user.user.handle.handle}.hashnode-t3.dev`}
-              </h1>
+      {isUserStartup ? (
+        user?.user.handle ? (
+          <div className="border-b border-border-light dark:border-border">
+            <h1 className="mb-1 px-4 text-xs font-semibold text-gray-500 dark:text-text-primary">
+              Personal Blogs
+            </h1>
+            <Link href={`/${user.user.id}/dashboard`}>
+              <div className="px-4 py-2 hover:bg-gray-200 hover:dark:bg-border">
+                <h1 className="max-height-one text-sm text-gray-700 dark:text-text-secondary">
+                  {`${user.user.handle.handle}.hashnode-t3.dev`}
+                </h1>
+              </div>
+            </Link>
+          </div>
+        ) : (
+          <Link href={`/onboard/blog/setup?redirect=/`}>
+            <div className="flex w-full cursor-pointer gap-2 px-4 py-2 hover:bg-light-bg dark:hover:bg-primary-light">
+              <Newspaper className="h-7 w-7 stroke-secondary" />
+              <div>
+                <h1 className="mb-1 text-sm font-semibold text-secondary">
+                  Start a personal blog
+                </h1>
+                <h1 className="text-xs font-medium text-gray-500 dark:text-text-secondary">
+                  Create a Grower blog for personal use.
+                </h1>
+              </div>
             </div>
           </Link>
-        </div>
-      ) : (
-        <Link href={`/onboard/blog/setup?redirect=/`}>
-          <div className="flex w-full cursor-pointer gap-2 px-4 py-2 hover:bg-light-bg dark:hover:bg-primary-light">
-            <Newspaper className="h-7 w-7 stroke-secondary" />
-            <div>
-              <h1 className="mb-1 text-sm font-semibold text-secondary">
-                Start a personal blog
-              </h1>
-              <h1 className="text-xs font-medium text-gray-500 dark:text-text-secondary">
-                Create a Grower blog for personal use.
-              </h1>
-            </div>
-          </div>
-        </Link>
-      )}
+        )
+      ) : null}
 
       {profileDropdownList.map((item, index) => (
         <>
@@ -94,7 +96,7 @@ const imageDropdown = React.forwardRef<
               } cursor-pointer`}
               onClick={() => {
                 if (item.danger) {
-                  void logout();
+                  handleLogout();
                 } else if (item.link && user?.user.id) {
                   const link = item.link(user?.user.id);
                   void router.push(link);
@@ -105,16 +107,21 @@ const imageDropdown = React.forwardRef<
               }}
               key={index}
             >
-              <div className="flex w-full cursor-pointer items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-200 dark:text-text-secondary dark:hover:bg-primary-light">
-                <span>{item.icon}</span>
-                <span
-                  className={`${
-                    item.danger ? "text-red" : ""
-                  } text-sm font-medium`}
-                >
-                  {item.name}
-                </span>
-              </div>
+              {/* Hide "Manage your blogs" option if user is not a startup */}
+              {(item.name !== "Manage your blogs" || isUserStartup) && (
+                <div className="flex items-center gap-2 px-4 py-2 hover:bg-light-bg dark:hover:bg-primary-light">
+                  <div>{item.icon}</div>
+                  <div
+                    className={`text-sm ${
+                      item.danger
+                        ? "text-red"
+                        : "text-gray-700 dark:text-text-secondary"
+                    }`}
+                  >
+                    {item.name}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </>
@@ -123,6 +130,6 @@ const imageDropdown = React.forwardRef<
   );
 });
 
-imageDropdown.displayName = "imageDropdown";
+ProfileDropdown.displayName = "ProfileDropdown";
 
-export default imageDropdown;
+export default ProfileDropdown;

@@ -1,15 +1,19 @@
-
 import { useSession } from 'next-auth/react';
 
 const Account = () => {
   const { data: session } = useSession();
+  const isUserStartup = session?.user?.role === "startup";
 
   return (
     <>
       <h1 className="text-2xl font-semibold text-red mb-4">Delete account</h1>
-      <p className="text-lg text-gray-700 dark:text-text-secondary mb-2">
-        Your Grower account administers these blogs: <span className="font-medium"> {session?.user.handle?.handle}.hashnode-t3.dev</span>
-      </p>
+      
+      {isUserStartup && session?.user.handle?.handle && (
+        <p className="text-lg text-gray-700 dark:text-text-secondary mb-2">
+          Your Grower account administers these blogs: <span className="font-medium"> {session?.user.handle?.handle}.hashnode-t3.dev</span>
+        </p>
+      )}
+      
       <p className="text-lg text-gray-700 dark:text-text-secondary mb-6">
         Your personal data will be deleted permanently when you delete your account on Grower. This action is irreversible.
       </p>
