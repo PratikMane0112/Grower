@@ -10,7 +10,7 @@ const Account = () => {
       
       {isUserStartup && session?.user.handle?.handle && (
         <p className="text-lg text-gray-700 dark:text-text-secondary mb-2">
-          Your Grower account administers these blogs: <span className="font-medium"> {session?.user.handle?.handle}.hashnode-t3.dev</span>
+          Your Grower account administers these ideas: <span className="font-medium"> {session?.user.handle?.handle}.hashnode-t3.dev</span>
         </p>
       )}
       

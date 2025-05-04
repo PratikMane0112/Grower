@@ -187,7 +187,7 @@ export const others = [
     },
     {
       id: uuid(),
-      name: "Official Blog",
+      name: "Official Idea",
       link: "https://grower.vercel.app/blog",
     },
     {
@@ -305,7 +305,7 @@ export const generalSettingsSocials = [
   {
     id: uuid(),
     label: "Instagram Profile",
-    placeholder: "https://www.instagram.com/harshwardhanpatil_07/",
+    placeholder: "https://www.instagram.com/user_07/",
     name: "instagram",
     icon: (
       <Instagram className="h-5 w-5 stroke-gray-500 dark:stroke-text-primary" />
@@ -314,7 +314,7 @@ export const generalSettingsSocials = [
   {
     id: uuid(),
     label: "Github Profile",
-    placeholder: "https://github.com/HarshwardhanPatil07",
+    placeholder: "https://github.com/user07",
     name: "github",
     icon: (
       <Github className="h-5 w-5 fill-none stroke-gray-500 dark:stroke-text-primary" />
@@ -332,7 +332,7 @@ export const generalSettingsSocials = [
   {
     id: uuid(),
     label: "Linkedin Profile",
-    placeholder: "https://www.linkedin.com/in/patilharshwardhan/",
+    placeholder: "https://www.linkedin.com/in/user/",
     name: "linkedin",
     icon: (
       <Linkedin className="h-5 w-5 stroke-gray-500 dark:stroke-text-primary" />
@@ -341,7 +341,7 @@ export const generalSettingsSocials = [
   {
     id: uuid(),
     label: "Youtube Channel",
-    placeholder: "https://youtube.com/@Harshwardhan",
+    placeholder: "https://youtube.com/@user",
     name: "youtube",
     icon: (
       <Youtube className="h-5 w-5 stroke-gray-500 dark:stroke-text-primary" />
@@ -350,7 +350,7 @@ export const generalSettingsSocials = [
   {
     id: uuid(),
     label: "Daily.dev Profile",
-    placeholder: "https://app.daily.dev/Harshwardhan",
+    placeholder: "https://app.daily.dev/user",
     name: "dailydev",
     icon: (
       <Dailydev className="h-5 w-5 stroke-gray-500 dark:stroke-text-primary" />
@@ -364,14 +364,14 @@ export const HashnodeSocials = [
     icon: (
       <Twitter className="h-5 w-5 fill-slate-500 stroke-none dark:fill-text-primary" />
     ),
-    link: "https://twitter.com/Harshwa35734378",
+    link: "https://twitter.com/user35734378",
   },
   {
     name: "Github",
     icon: (
       <Github className="h-5 w-5 fill-none stroke-slate-500 dark:stroke-text-primary" />
     ),
-    link: "https://github.com/HarshwardhanPatil07",
+    link: "https://github.com/user07",
   },
   {
     name: "Discord",
@@ -383,7 +383,7 @@ export const HashnodeSocials = [
     icon: (
       <LogonoText className="h-5 w-5 fill-slate-500 dark:fill-text-primary" />
     ),
-    link: "https://grower.com/@harshwardhan_patil",
+    link: "https://grower.com/@user",
   },
 ];
 
@@ -500,7 +500,7 @@ export const profileDropdownList = [
     danger: false,
   },
   {
-    name: "Manage your blogs",
+    name: "Manage your ideas",
     icon: (
       <Table2 className="h-4 w-4 fill-none stroke-gray-900 dark:stroke-text-secondary" />
     ),

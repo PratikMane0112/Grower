@@ -19,7 +19,7 @@ const UserBlogingArea: FC<{
         <div className="flex-1">
           <h1 className="text-lg font-semibold text-gray-700 dark:text-text-secondary md:text-xl">
             {userDetails?.handle?.name === userDetails?.username
-              ? `${userDetails?.handle?.name}'s Blog`
+              ? `${userDetails?.handle?.name}'s Idea`
               : userDetails?.handle?.name}
           </h1>
 
@@ -33,7 +33,7 @@ const UserBlogingArea: FC<{
             <MoveUpRight className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
 
             <span className="text-sm text-gray-700 dark:text-text-secondary md:text-base">
-              Read the Blog
+              Read the Idea
             </span>
           </button>
         </Link>

@@ -107,7 +107,7 @@ const Dashboard = () => {
       <MetaTags
         title={`${
           session?.user.handle?.name === session?.user.name
-            ? `${session?.user.handle?.name}'s Blog`
+            ? `${session?.user.handle?.name}'s Idea`
             : session?.user.handle?.name
         } Dashboard`}
       />
@@ -125,7 +125,7 @@ const Dashboard = () => {
 
                 <h1 className="text-base font-semibold text-gray-700 dark:text-text-secondary md:text-lg md:font-bold">
                   {session?.user.handle?.name === session?.user.name
-                    ? `${session?.user.handle?.name}' Blog`
+                    ? `${session?.user.handle?.name}' Idea`
                     : session?.user.handle?.name}
                 </h1>
               </div>
@@ -141,7 +141,7 @@ const Dashboard = () => {
                   <ExternalLink className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
 
                   <span className="font-medium text-gray-600 dark:text-text-primary">
-                    Visit Blog
+                    Visit Idea
                   </span>
                 </div>
               </Link>
@@ -218,7 +218,7 @@ const Roadmap = () => {
   return (
     <section className="mb-6 w-full rounded-md border border-border-light bg-white p-4 dark:border-border dark:bg-primary">
       <h1 className="mb-4 text-base font-semibold text-gray-700 dark:text-text-secondary">
-        Welcome to your new blog! What&apos;s next?
+        Welcome to your new Idea! What&apos;s next?
       </h1>
 
       <div className="flex flex-wrap gap-4">
@@ -281,7 +281,7 @@ const Roadmap = () => {
             </h1>
 
             <p className="text-sm text-gray-500 dark:text-text-primary md:text-base">
-              Personalize the design of your blog and showcase your personality.
+              Personalize the design of your idea and showcase your personality.
             </p>
           </div>
         </div>
@@ -299,7 +299,7 @@ const Roadmap = () => {
             </h1>
 
             <p className="text-sm text-gray-500 dark:text-text-primary md:text-base">
-              Change your grower.dev blog URL to a custom domain of your
+              Change your grower.dev idea URL to a custom domain of your
               choice for free!
             </p>
           </div>

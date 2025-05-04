@@ -110,7 +110,7 @@ export const FeedbackForm = ({
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="input-filled mb-4"
-            placeholder="Harshwardhan / harshwardhan@example.com"
+            placeholder="user / user@example.com"
           />
         </div>
 

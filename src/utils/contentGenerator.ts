@@ -20,14 +20,14 @@ const generateContent = async ({
   switch (type) {
     case "TITLE":
       prompt =
-        "Write 1 short, simple and interesting title for a blog post on tech genre. Don't add quotation marks.";
+        "Write 1 short, simple and interesting title for a idea post on tech genre. Don't add quotation marks.";
       break;
     case "SUBTITLE":
       prompt = subject
-        ? "Write 1 short, simple and interesting subtitle for a tech blog post on '" +
+        ? "Write 1 short, simple and interesting subtitle for a tech idea post on '" +
           subject +
           "'. Don't add quotation marks."
-        : "Write 1 short, simple and interesting subtitle for a blog post on tech genre. Don't add quotation marks.";
+        : "Write 1 short, simple and interesting subtitle for a idea post on tech genre. Don't add quotation marks.";
       break;
     case "CONTENT":
       prompt =
@@ -46,7 +46,7 @@ const generateContent = async ({
       prompt =
         "You are an AI writing assistant that continues existing text based on context from prior text. " +
         "Give more weight/priority to the later characters than the beginning ones. " +
-        "Write a title for a blog post on tech genre. ";
+        "Write a title for a idea post on tech genre. ";
       break;
   }
 

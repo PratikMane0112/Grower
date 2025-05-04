@@ -8,6 +8,7 @@ import {
   Plus,
   Share,
   Twitter,
+  BadgeCheck,
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -16,6 +17,7 @@ import { useEffect, useState, type FC } from "react";
 import { toast } from "react-toastify";
 import { type DetailedUser } from "~/types";
 import { api } from "~/utils/api";
+import { VerificationBadge } from "~/component/miniComponent";
 
 const UserimageArea: FC<{
   userDetails: DetailedUser | undefined;
@@ -81,6 +83,19 @@ const UserimageArea: FC<{
                 <h3 className="text-xl font-semibold text-gray-700 dark:text-text-secondary md:text-2xl">
                   {userDetails?.name}
                 </h3>
+                {userDetails?.verified && (
+                  <Tooltip
+                    label="Verified Account"
+                    position="bottom"
+                    style={{
+                      fontSize: "0.8rem",
+                      fontWeight: "400",
+                      letterSpacing: "0.5px",
+                    }}
+                  >
+                    <BadgeCheck className="h-5 w-5 fill-blue-500 stroke-white" />
+                  </Tooltip>
+                )}
                 {userDetails?.stripeSubscriptionStatus === "active" && (
                   <Tooltip
                     label="Grower Clone Pro User"

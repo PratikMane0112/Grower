@@ -5,10 +5,10 @@ const Footer = () => {
         <span>@{new Date().getFullYear()} Grower By </span>
         <a
           target={"_blank"}
-          href="https://github.com/HarshwardhanPatil07"
+          href="https://github.com/user07"
           className="font-semibold text-secondary underline"
         >
-          Harshwardhan Patil
+          Grower's Team
         </a>
       </p>
 
@@ -20,7 +20,7 @@ const Footer = () => {
 
       <a
         target={"_blank"}
-        href="https://github.com/HarshwardhanPatil07"
+        href="https://github.com/user07"
         className="my-6 rounded-md border border-border-light px-6 py-3 text-black outline-none dark:border-border dark:text-white"
       >
         View Github

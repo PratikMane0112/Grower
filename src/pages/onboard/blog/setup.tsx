@@ -57,8 +57,8 @@ const Setup = () => {
   return (
     <>
       <MetaTags
-        title={`Choose a name for your blog`}
-        description="Choose a name for your blog and start your journey with Grower."
+        title={`Choose a name for your idea`}
+        description="Choose a name for your idea and start your journey with Grower."
       />
       <div className="flex items-center justify-center border-b border-border-light bg-white p-4 dark:border-border dark:bg-primary">
         <Link href={"/"}>
@@ -69,7 +69,7 @@ const Setup = () => {
       <div className="min-h-[100dvh] w-full bg-white dark:bg-black">
         <div className="mx-auto max-w-[900px] px-4 py-16">
           <h1 className="mb-4 text-xl font-semibold text-gray-700 dark:text-text-secondary">
-            Where do you want this blog to be located?
+            Where do you want this idea to be located?
           </h1>
 
           <div className="mb-6 rounded-md border border-border-light bg-light-bg px-6 py-4 dark:border-border dark:bg-primary">
@@ -83,10 +83,10 @@ const Setup = () => {
                     name: e.target.value,
                   })
                 }
-                placeholder="Enter your blog name"
+                placeholder="Enter your idea name"
                 type="INPUT"
                 variant="FILLED"
-                label="Choose a name for your blog"
+                label="Choose a name for your idea"
                 required={false}
                 value={handle.name}
               />
@@ -110,7 +110,7 @@ const Setup = () => {
                 placeholder="Enter a domain name"
                 type="INPUT"
                 variant="FILLED"
-                label="Choose a domain for your blog (harshwardhan.grower.app)"
+                label="Choose a domain for your idea (user.grower.app)"
                 required={false}
                 value={handle.domain}
               />

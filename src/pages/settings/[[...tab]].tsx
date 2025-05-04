@@ -10,6 +10,7 @@ import {
   Subscription,
   UserDetailsOptions,
   UserProfile,
+  Verification,
 } from "~/component";
 import MetaTags from "~/component/MetaTags";
 import { authOptions } from "~/server/auth";
@@ -52,6 +53,7 @@ const EditProfile: NextPage<{
                   account: <Account />,
                   "email-notification": <EmailNotification />,
                   "manage-blogs": <ManageBlogs />,
+                  verification: <Verification />,
                   pro: <Subscription />,
                 }[tab ? tab[0]! : "default"]
               }

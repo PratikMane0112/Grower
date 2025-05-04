@@ -20,7 +20,7 @@ const SocialInfo: FC<{
         label="Twitter"
         type="INPUT"
         variant="FILLED"
-        placeholder="https://twitter.com/HarshwardhanPatil"
+        placeholder="https://twitter.com/user"
         input_type="text"
         disabled={false}
         required={false}
@@ -33,7 +33,7 @@ const SocialInfo: FC<{
         label="Instagram"
         type="INPUT"
         variant="FILLED"
-        placeholder="https://www.instagram.com/harshwardhanpatil_07/"
+        placeholder="https://www.instagram.com/user_07/"
         input_type="text"
         disabled={false}
         required={false}
@@ -46,7 +46,7 @@ const SocialInfo: FC<{
         label="Facebook"
         type="INPUT"
         variant="FILLED"
-        placeholder="https://facebook.com/HarshwardhanPatil"
+        placeholder="https://facebook.com/user"
         input_type="text"
         disabled={false}
         required={false}
@@ -59,7 +59,7 @@ const SocialInfo: FC<{
         label="LinkedIn"
         type="INPUT"
         variant="FILLED"
-        placeholder="https://www.linkedin.com/in/patilharshwardhan/"
+        placeholder="https://www.linkedin.com/in/user/"
         input_type="text"
         disabled={false}
         required={false}
@@ -72,7 +72,7 @@ const SocialInfo: FC<{
         label="Youtube"
         type="INPUT"
         variant="FILLED"
-        placeholder="https://youtube.com/HarshwardhanPatil"
+        placeholder="https://youtube.com/user"
         input_type="text"
         disabled={false}
         required={false}
@@ -85,7 +85,7 @@ const SocialInfo: FC<{
         label="Stackoverflow"
         type="INPUT"
         variant="FILLED"
-        placeholder="https://stackoverflow.com/HarshwardhanPatil"
+        placeholder="https://stackoverflow.com/user"
         input_type="text"
         disabled={false}
         required={false}
@@ -98,7 +98,7 @@ const SocialInfo: FC<{
         label="Github"
         type="INPUT"
         variant="FILLED"
-        placeholder="https://github.com/HarshwardhanPatil07"
+        placeholder="https://github.com/user07"
         input_type="text"
         disabled={false}
         required={false}
@@ -111,7 +111,7 @@ const SocialInfo: FC<{
         label="Website"
         type="INPUT"
         variant="FILLED"
-        placeholder="https://harshwardhan.com"
+        placeholder="https://user.com"
         input_type="text"
         disabled={false}
         required={false}
@@ -128,7 +128,7 @@ const SocialInfo: FC<{
         label="Username"
         type="INPUT"
         variant="FILLED"
-        placeholder="Harshwardhan"
+        placeholder="user"
         input_type="text"
         disabled={false}
         required={true}
@@ -141,7 +141,7 @@ const SocialInfo: FC<{
         label="Email"
         type="INPUT"
         variant="FILLED"
-        placeholder="harshwardhan@example.com"
+        placeholder="user@example.com"
         input_type="email"
         disabled={true}
         required={true}

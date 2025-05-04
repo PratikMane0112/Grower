@@ -139,7 +139,7 @@ const AuthorBlogHeader: FC<Props> = ({ user: author }) => {
                 />
 
                 <h3 className="text-xl font-semibold text-gray-700 dark:text-text-secondary">
-                  {author.name}&apos;s Blog
+                  {author.name}&apos;s Idea
                 </h3>
               </Link>
             </div>
@@ -199,7 +199,7 @@ const AuthorBlogHeader: FC<Props> = ({ user: author }) => {
         <section className="flex w-full flex-col sm:py-4">
           <div className="m-4 block sm:hidden">
             <h1 className="text-center text-xl font-semibold text-gray-700 dark:text-text-secondary sm:text-2xl">
-              {author.name}&apos;s Blog
+              {author.name}&apos;s Idea
             </h1>
           </div>
 

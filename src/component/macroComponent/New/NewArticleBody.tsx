@@ -289,7 +289,7 @@ const NewArticleBody: FC<{
                     slug: slugify(value, slugSetting),
                   }));
                 }}
-                placeholder="Article Title"
+                placeholder="Idea Title"
                 input_type="text"
                 variant="TRANSPARENT"
                 name="title"
@@ -318,7 +318,7 @@ const NewArticleBody: FC<{
                 onChange={(e) => {
                   setData(prev => ({ ...prev, subtitle: e.target.value }));
                 }}
-                placeholder="Article Subtitle (optional)"
+                placeholder="Idea Subtitle (optional)"
                 input_type="text"
                 variant="TRANSPARENT"
                 name="subtitle"

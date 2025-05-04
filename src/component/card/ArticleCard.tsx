@@ -6,16 +6,17 @@ import {
   BookmarkCheck,
   MessageCircle,
   ThumbsUp,
+  BadgeCheck,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, type FC } from "react";
 import removeMd from "remove-markdown";
-import { ArticleCard } from "~/types";
+import { ArticleCard as ArticleCardType } from "~/types";
 import { C } from "~/utils/context";
 import { formatDate, limitTags, limitText } from "~/utils/miniFunctions";
 
-const ArticleCard: FC<{ card: ArticleCard }> = ({ card }) => {
+const ArticleCard: FC<{ card: ArticleCardType }> = ({ card }) => {
   const { bookmarks, updateBookmark } = useContext(C)!;
 
   return (
@@ -40,6 +41,20 @@ const ArticleCard: FC<{ card: ArticleCard }> = ({ card }) => {
                 {card.user?.name}
               </h1>
             </Link>
+
+            {card.user?.verified && (
+              <Tooltip
+                label="Verified Account"
+                position="bottom"
+                style={{
+                  fontSize: "0.8rem",
+                  fontWeight: "400",
+                  letterSpacing: "0.5px",
+                }}
+              >
+                <BadgeCheck className="h-4 w-4 fill-blue-500 stroke-white" />
+              </Tooltip>
+            )}
 
             {card.user?.stripeSubscriptionStatus === "active" && (
               <Tooltip
@@ -179,7 +194,7 @@ const ArticleCard: FC<{ card: ArticleCard }> = ({ card }) => {
 
 export default ArticleCard;
 
-const ArticleCardFooter: FC<{ card: ArticleCard }> = ({ card }) => {
+const ArticleCardFooter: FC<{ card: ArticleCardType }> = ({ card }) => {
   return (
     <div className="flex items-center">
       {card.readCount > 0 && (

@@ -51,6 +51,7 @@ declare module "next-auth" {
     tagline: string;
     role: string;
     stripeSubscriptionStatus: string | null;
+    verified?: boolean;
     handle?: {
       handle: string;
       id: string;
@@ -270,6 +271,7 @@ export const authOptions: NextAuthOptions = {
             tagline: dbUser.tagline,
             role: dbUser.role,
             handle: handle,
+            verified: dbUser.verified || false,
             stripeSubscriptionStatus: dbUser.stripeSubscriptionStatus,
           },
         };

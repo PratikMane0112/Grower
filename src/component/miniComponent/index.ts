@@ -17,3 +17,4 @@ export { default as SelectSeries } from "./SelectSeries";
 export { default as SelectTags } from "./SelectTags";
 export { default as ShareOptions } from "./ShareOptions";
 export { default as Trending } from "./Trending";
+export { default as VerificationBadge } from "./VerificationBadge";

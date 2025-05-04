@@ -7,6 +7,7 @@ import {
   primaryKey,
   text,
   timestamp,
+  boolean,
 } from "drizzle-orm/pg-core";
 
 import { type AdapterAccount } from "next-auth/adapters";
@@ -36,6 +37,7 @@ export const users = pgTable("user", {
   skills: text("skills").array(),
   location: text("location"),
   available: text("available"),
+  verified: boolean("verified").default(false), // Added verified column with default value false
   social: json("social").default({
     github: "",
     twitter: "",

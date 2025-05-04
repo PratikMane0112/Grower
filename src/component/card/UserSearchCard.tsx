@@ -1,5 +1,5 @@
 import { Tooltip } from "@mantine/core";
-import { Check, Plus } from "lucide-react";
+import { Check, Plus, BadgeCheck } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,6 +17,7 @@ interface Props {
     image: string | null;
     isFollowing: boolean;
     isAuthor: boolean;
+    verified: boolean;
   };
   setOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -69,6 +70,19 @@ const UserSearchCard: FC<Props> = ({ user: searchedUser, setOpened }) => {
               <h3 className="text-base font-semibold text-gray-700 dark:text-text-secondary md:text-lg">
                 {searchedUser.name}
               </h3>
+              {searchedUser.verified && (
+                <Tooltip
+                  label="Verified Account"
+                  position="bottom"
+                  style={{
+                    fontSize: "0.8rem",
+                    fontWeight: "400",
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  <BadgeCheck className="h-4 w-4 fill-blue-500 stroke-white" />
+                </Tooltip>
+              )}
               {searchedUser.stripeSubscriptionStatus === "active" && (
                 <Tooltip
                   label="Grower Clone Pro User"

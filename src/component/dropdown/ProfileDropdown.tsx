@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { forwardRef } from "react";
 import { profileDropdownList } from "~/utils/constants";
+import { VerificationBadge } from "~/component/miniComponent";
 
 const ProfileDropdown = forwardRef<
   HTMLDivElement,
@@ -41,9 +42,12 @@ const ProfileDropdown = forwardRef<
             draggable={false}
           />
           <div className="flex-1">
-            <h1 className="max-height-one text-base font-semibold dark:text-text-secondary">
-              {user?.user.name}
-            </h1>
+            <div className="flex items-center gap-1">
+              <h1 className="max-height-one text-base font-semibold dark:text-text-secondary">
+                {user?.user.name}
+              </h1>
+              {user?.user.verified && <VerificationBadge size="md" />}
+            </div>
             <div className="text-sm text-gray-500 dark:text-text-primary">
               @{user?.user.username}
             </div>
@@ -55,7 +59,7 @@ const ProfileDropdown = forwardRef<
         user?.user.handle ? (
           <div className="border-b border-border-light dark:border-border">
             <h1 className="mb-1 px-4 text-xs font-semibold text-gray-500 dark:text-text-primary">
-              Personal Blogs
+              Personal Ideas
             </h1>
             <Link href={`/${user.user.id}/dashboard`}>
               <div className="px-4 py-2 hover:bg-gray-200 hover:dark:bg-border">
@@ -71,10 +75,10 @@ const ProfileDropdown = forwardRef<
               <Newspaper className="h-7 w-7 stroke-secondary" />
               <div>
                 <h1 className="mb-1 text-sm font-semibold text-secondary">
-                  Start a personal blog
+                  Start a personal idea post
                 </h1>
                 <h1 className="text-xs font-medium text-gray-500 dark:text-text-secondary">
-                  Create a Grower blog for personal use.
+                  Create a Grower channel for personal use.
                 </h1>
               </div>
             </div>
@@ -108,7 +112,7 @@ const ProfileDropdown = forwardRef<
               key={index}
             >
               {/* Hide "Manage your blogs" option if user is not a startup */}
-              {(item.name !== "Manage your blogs" || isUserStartup) && (
+              {(item.name !== "Manage your ideas" || isUserStartup) && (
                 <div className="flex items-center gap-2 px-4 py-2 hover:bg-light-bg dark:hover:bg-primary-light">
                   <div>{item.icon}</div>
                   <div

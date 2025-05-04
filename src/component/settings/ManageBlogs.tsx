@@ -23,7 +23,7 @@ const ManageBlogs = () => {
     <>
       <header className="pb-4 border-b border-border-light dark:border-border">
         <h1 className="text-gray-700 dark:text-text-secondary text-xl font-semibold">
-          My blogs
+          My Ideas
         </h1>
       </header>
 
@@ -31,8 +31,8 @@ const ManageBlogs = () => {
         <table className="table w-full table-auto border-separate border-spacing-0 border border-border-light dark:border-border rounded-lg overflow-hidden">
           <thead>
             <tr className="text-sm text-left bg-slate-100 dark:bg-primary-light">
-              <th scope="col" className="px-6 py-3.5 rounded-tl-lg font-bold text-slate-600 dark:text-slate-300">Blogs</th>
-              <th scope="col" className="px-6 py-3.5 font-bold text-slate-600 dark:text-slate-300 whitespace-nowrap">Blog Type</th>
+              <th scope="col" className="px-6 py-3.5 rounded-tl-lg font-bold text-slate-600 dark:text-slate-300">Ideas</th>
+              <th scope="col" className="px-6 py-3.5 font-bold text-slate-600 dark:text-slate-300 whitespace-nowrap">Idea Type</th>
               <th scope="col" className="px-6 py-3.5 font-bold text-slate-600 dark:text-slate-300"><span>Role</span></th>
               <th scope="col" className="px-6 py-3.5 rounded-tr-lg font-bold text-slate-600 dark:text-slate-300">Action</th>
             </tr>
@@ -51,7 +51,7 @@ const ManageBlogs = () => {
                   Manage
                 </button>
                 <button className="px-4 py-2 rounded-md bg-red hover:bg-[#f10707] text-white shadow-md outline-none font-medium text-sm">
-                  Delete Blog
+                  Delete Idea
                 </button>
               </th>
             </tr>

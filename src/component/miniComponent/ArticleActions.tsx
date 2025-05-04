@@ -262,7 +262,7 @@ const MoreOptions = React.forwardRef<
     "Edit",
     "Delete",
     "Disable Comments",
-    "Pin to your blog",
+    "Pin to your idea",
     "Report",
   ]
 

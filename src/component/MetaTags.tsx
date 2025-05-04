@@ -26,7 +26,7 @@ const MetaTags: React.FC<Props> = ({
   }, [title]);
 
   const DEFAULT_DESCRIPTION =
-    "Grower is a free entrepreneur blogging platform that allows you to publish articles on your own domain and helps you stay connected with a global entrepreneurs community.";
+    "Grower is a free entrepreneur platform that allows you to publish articles on your own domain and helps you stay connected with a global entrepreneurs community.";
   const LOGO_PATH = `${baseUrl}/static/og_image.jpg`;
   const favicon = `${baseUrl}/static/favicon.ico`;
 

@@ -11,6 +11,7 @@ import {
   tagsRouter,
   usersRouter,
 } from "./routers";
+import { verificationRouter } from "./routers/verification"; // Fixed import
 
 export const appRouter = createTRPCRouter({
   posts: postsRouter,
@@ -23,6 +24,7 @@ export const appRouter = createTRPCRouter({
   handles: handleRouter,
   series: seriesRouter,
   feedback: feedbackRouter,
+  verification: verificationRouter,
 });
 
 export type AppRouter = typeof appRouter;

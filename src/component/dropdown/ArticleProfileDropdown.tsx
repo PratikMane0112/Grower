@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { articleimageDropdownList } from "~/utils/constants";
+import { VerificationBadge } from "~/component/miniComponent";
 
 const ArticleimageDropdown = React.forwardRef<HTMLDivElement>(({}, ref) => {
   const { data: user } = useSession();
@@ -29,9 +30,12 @@ const ArticleimageDropdown = React.forwardRef<HTMLDivElement>(({}, ref) => {
             draggable={false}
           />
           <div>
-            <h1 className="text-sm font-semibold dark:text-text-secondary">
-              {user?.user.name}
-            </h1>
+            <div className="flex items-center gap-1">
+              <h1 className="text-sm font-semibold dark:text-text-secondary">
+                {user?.user.name}
+              </h1>
+              {user?.user.verified && <VerificationBadge size="md" />}
+            </div>
             <h2 className="text-sm text-gray-600 dark:text-text-primary">
               @{user?.user.username}
             </h2>

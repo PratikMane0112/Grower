@@ -38,7 +38,7 @@ const ArticleHamburgerMenu: FC<Props> = ({ user, menu, setMenu }) => {
 
               {user?.name && (
                 <h1 className="text-lg font-medium text-gray-700 dark:text-text-secondary">
-                  {user?.name}&rsquo;s Blog
+                  {user?.name}&rsquo;s Idea
                 </h1>
               )}
             </Link>
@@ -55,7 +55,7 @@ const ArticleHamburgerMenu: FC<Props> = ({ user, menu, setMenu }) => {
           <section className="flex flex-1 flex-col bg-light-bg shadow-md dark:bg-primary">
             <div className="flex flex-1 flex-col py-4">
               <h1 className="mb-4 px-6 py-2 text-sm font-medium tracking-wide text-gray-700 dark:text-text-secondary">
-                BLOG MENU
+                IDEA MENU
               </h1>
 
               <ul className="mb-4 border-b border-border-light px-4 pb-4 dark:border-border">
@@ -71,7 +71,7 @@ const ArticleHamburgerMenu: FC<Props> = ({ user, menu, setMenu }) => {
               </ul>
 
               <h1 className="mb-4 px-6 py-2 text-base font-medium tracking-wide text-gray-700 dark:text-text-secondary">
-                BLOG SOCIALS
+               IDEA SOCIALS
               </h1>
 
               <ul className="mb-4 flex flex-wrap gap-2 border-b border-border-light px-4 pb-4 dark:border-primary-light">

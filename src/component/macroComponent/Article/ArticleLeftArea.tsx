@@ -52,7 +52,7 @@ const ArticleLeftArea: FC<{ user: UserType; }> = ({
           className="h-8 w-8 rounded-full"
         />
         <h1 className="text-lg font-semibold text-gray-700 dark:text-text-secondary">
-          {user?.name}&rsquo;s Blog
+          {user?.name}&rsquo;s Idea
         </h1>
       </Link>
     </div>

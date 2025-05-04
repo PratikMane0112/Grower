@@ -20,6 +20,7 @@ export interface Article {
     image: string | null;
     bio: string | null;
     stripeSubscriptionStatus: string | null;
+    verified?: boolean;
     handle: {
       id: string;
       handle: string;
@@ -92,6 +93,7 @@ export interface User {
   username: string;
   image: string;
   stripeSubscriptionStatus: string | null;
+  verified?: boolean;
   handle?: {
     id: string;
     name: string;
@@ -233,6 +235,7 @@ export interface DetailedUser {
   skills: string[];
   location: string;
   available: string;
+  verified: boolean; // Added verified field
   followingCount: number;
   createdAt: Date;
   updatedAt: Date;

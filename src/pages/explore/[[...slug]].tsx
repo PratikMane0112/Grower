@@ -6,8 +6,8 @@ const ExplorePage: NextPage = () => {
   return (
     <>
       <MetaTags
-        title={`Explore Popular Entrepreneurial Blogs and Topics`}
-        description="Explore the most popular entrepreneur blogs from the Grower community. A constantly updating list of the best minds in entreprenurial journey."
+        title={`Explore Popular Entrepreneurial Ideas and Topics`}
+        description="Explore the most popular entrepreneur ideas from the Grower community. A constantly updating list of the best minds in entreprenurial journey."
       />
 
       <Header />

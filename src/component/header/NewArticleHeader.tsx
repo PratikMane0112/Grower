@@ -36,7 +36,7 @@ const NewArticleHeader: FC<Props> = ({ setPublishModal, publishing }) => {
             >
               <LogonoText className="h-7 fill-secondary" />
               <span className="hidden text-sm font-semibold text-gray-700 dark:text-text-secondary sm:block md:text-lg">
-                {user?.user.username}&apos;s Blog
+                {user?.user.username}&apos;s Idea
               </span>
             </Link>
           </div>

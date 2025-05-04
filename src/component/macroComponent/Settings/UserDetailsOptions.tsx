@@ -1,4 +1,4 @@
-import { Mail, Settings, Table2, User, Wand2 } from "lucide-react";
+import { Mail, Settings, Table2, User, Wand2, BadgeCheck } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { useSession } from "next-auth/react";
@@ -45,7 +45,23 @@ const UserDetailsOptions = () => {
                   <Table2 className={`w-5 h-5 ${tab?.length === 1 && tab[0] === "manage-blogs" ? "stroke-secondary" : " stroke-gray-600 dark:stroke-text-primary"}`} />
                 </span>
                 <span>
-                  MANAGE BLOGS
+                  MANAGE IDEAS
+                </span>
+              </div>
+            </Link>
+          </li>
+        )}
+        
+        {/* Add Verification option for startup users */}
+        {isUserStartup && (
+          <li className="w-full">
+            <Link href="/settings/verification">
+              <div className={`cursor-pointer px-4 py-3 text-base font-semibold hover:bg-gray-200 dark:hover:bg-border flex flex-row items-center gap-2 ${tab?.length === 1 && tab[0] === "verification" ? "text-secondary" : " text-gray-600 dark:text-text-primary"}`}>
+                <span>
+                  <BadgeCheck className={`w-5 h-5 ${tab?.length === 1 && tab[0] === "verification" ? "stroke-secondary" : " stroke-gray-600 dark:stroke-text-primary"}`} />
+                </span>
+                <span>
+                  GET VERIFIED
                 </span>
               </div>
             </Link>

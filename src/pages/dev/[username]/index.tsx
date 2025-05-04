@@ -120,8 +120,8 @@ const AuthorBlogs: NextPage<{
   return (
     <>
       <MetaTags
-        title={`${user.name}'s Blog | Grower`}
-        description={`${user.name}'s Blog | Grower`}
+        title={`${user.name}'s Idea | Grower`}
+        description={`${user.name}'s Idea | Grower`}
       />
 
       <AuthorBlogHeader user={user} />
