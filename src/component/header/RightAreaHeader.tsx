@@ -1,6 +1,6 @@
 import { Tooltip } from "@mantine/core";
 import { useClickOutside, useViewportSize } from "@mantine/hooks";
-import { Bell, GitBranch, Pencil, Sun } from "lucide-react";
+import { Bell, GitBranch, Pencil, Sun, DollarSign } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -16,6 +16,12 @@ const RightArea: FC = () => {
   const [opened, setOpened] = useState(false);
   const router = useRouter();
   const isUserStartup = user?.user?.role === "startup";
+  
+  // Check if user is a verified investor
+  const isVerifiedInvestor = user?.user?.role === "investor" && user?.user?.verified === true;
+  
+  // Check if user can access investments (either a startup or verified investor)
+  const canAccessInvestments = isUserStartup || isVerifiedInvestor;
 
   const [control, setControl] = useState<HTMLDivElement | null>(null);
   const [dropdown, setDropdown] = useState<HTMLDivElement | null>(null);
@@ -76,6 +82,20 @@ const RightArea: FC = () => {
             </Link>
           </div>
         </>
+      )}
+      
+      {!!user && canAccessInvestments && (
+        <Tooltip label="Investments" position="bottom" withArrow>
+          <Link href="/investments">
+            <button
+              aria-label="Investments"
+              role="button"
+              className={`btn-icon flex h-10 w-10 ${router.pathname === "/investments" ? "bg-gray-100 dark:bg-primary-light" : ""}`}
+            >
+              <DollarSign className="h-5 w-5 fill-none stroke-gray-700 dark:stroke-text-secondary" />
+            </button>
+          </Link>
+        </Tooltip>
       )}
 
       <Tooltip label="Updates" position="bottom" withArrow>

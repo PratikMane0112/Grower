@@ -7,6 +7,7 @@ import {
   MessageCircle,
   ThumbsUp,
   BadgeCheck,
+  DollarSign,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,9 +16,27 @@ import removeMd from "remove-markdown";
 import { ArticleCard as ArticleCardType } from "~/types";
 import { C } from "~/utils/context";
 import { formatDate, limitTags, limitText } from "~/utils/miniFunctions";
+import { api } from "~/utils/api";
 
 const ArticleCard: FC<{ card: ArticleCardType }> = ({ card }) => {
   const { bookmarks, updateBookmark } = useContext(C)!;
+
+  // Fetch the accepted investors count for this article
+  const { data: investmentData } = api.investments.getAcceptedInvestorCount.useQuery(
+    {
+      ideaId: card.id,
+    },
+    {
+      enabled: !!card.id, // Only run query if the article id exists
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  // Add the accepted investors count to the card data
+  const cardWithInvestorCount = {
+    ...card,
+    acceptedInvestorsCount: investmentData?.count || 0,
+  };
 
   return (
     <div className="w-full p-4">
@@ -185,7 +204,7 @@ const ArticleCard: FC<{ card: ArticleCardType }> = ({ card }) => {
             </div>
           </div>
 
-          <ArticleCardFooter card={card} />
+          <ArticleCardFooter card={cardWithInvestorCount} />
         </div>
       </main>
     </div>
@@ -233,6 +252,26 @@ const ArticleCardFooter: FC<{ card: ArticleCardType }> = ({ card }) => {
               {card.commentsCount}
             </span>
           </button>
+
+          {card.acceptedInvestorsCount && card.acceptedInvestorsCount > 0 && (
+            <Tooltip
+              label={`${card.acceptedInvestorsCount} accepted investor${card.acceptedInvestorsCount > 1 ? 's' : ''}`}
+              position="bottom"
+              withArrow
+              style={{
+                fontSize: "0.8rem",
+                fontWeight: "400",
+                letterSpacing: "0.5px",
+              }}
+            >
+              <div className="flex items-center gap-1 rounded-md bg-green-500 dark:bg-green-600 px-2.5 py-1.5 ml-1">
+                <DollarSign className="h-4 w-4 text-gray-400" />
+                <span className="text-sm font-bold text-gray-400">
+                  {card.acceptedInvestorsCount}
+                </span>
+              </div>
+            </Tooltip>
+          )}
 
           {/* {card.commonUsers.length > 0 && (
             <div className="hidden flex-1 sm:flex">

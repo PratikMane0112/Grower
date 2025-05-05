@@ -12,6 +12,7 @@ import {
   usersRouter,
 } from "./routers";
 import { verificationRouter } from "./routers/verification"; // Fixed import
+import { investmentsRouter } from "./routers/investments"; // Import investments router
 
 export const appRouter = createTRPCRouter({
   posts: postsRouter,
@@ -25,6 +26,7 @@ export const appRouter = createTRPCRouter({
   series: seriesRouter,
   feedback: feedbackRouter,
   verification: verificationRouter,
+  investments: investmentsRouter, // Add investments router
 });
 
 export type AppRouter = typeof appRouter;

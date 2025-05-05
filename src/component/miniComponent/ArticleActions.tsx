@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState, type FC } from "react";
 import { toast } from "react-toastify";
 
-import { Bookmark, BookmarkMinus, Heart, MessageCircle, MoreVertical, Share2, UserPlus } from "lucide-react";
+import { Bookmark, BookmarkMinus, Heart, MessageCircle, MoreVertical, Share2, UserPlus, DollarSign } from "lucide-react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import { C } from "~/utils/context";
@@ -70,6 +70,9 @@ const ArticleActions: FC<Props> = ({
 
   // Check if the current user is a verified mentor
   const isMentorVerified = user?.user.role === "mentor" && user?.user.verified === true;
+  
+  // Check if the current user is a verified investor
+  const isInvestorVerified = user?.user.role === "investor" && user?.user.verified === true;
 
   const { data } = api.likes.likeState.useQuery(
     {
@@ -120,6 +123,22 @@ const ArticleActions: FC<Props> = ({
     
     // Navigate to the author's profile page
     void router.push(`/u/@${article.user.username}`);
+  };
+
+  // Function to handle investment 
+  const handleInvest = () => {
+    if (!user?.user.id) {
+      toast.error("You need to be logged in to invest");
+      return;
+    }
+    
+    if (!isInvestorVerified) {
+      toast.error("Only verified investors can invest in ideas");
+      return;
+    }
+    
+    // Navigate to the investment page for this idea
+    void router.push(`/invest/${article.slug}`);
   };
 
   return (
@@ -175,6 +194,27 @@ const ArticleActions: FC<Props> = ({
             <span>{commentsCount}</span>
           </button>
         </Tooltip>
+
+        {/* Add Invest button for verified investors */}
+        {isInvestorVerified && (
+          <>
+            <div className="h-6 w-[2px] bg-border-light dark:bg-border" />
+            
+            <Tooltip label="Invest in this idea" withArrow>
+              <button
+                aria-label="Invest in this idea"
+                role="button"
+                onClick={handleInvest}
+                className="flex items-center gap-2 rounded-full p-2 text-green-600 hover:bg-green-100 dark:text-green-400 dark:hover:bg-green-900/20"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <DollarSign className="h-5 w-5 fill-none stroke-green-600 dark:stroke-gray-400 md:h-6 md:w-6" />
+                </div>
+                <span className="dark:text-gray-300">Invest</span>
+              </button>
+            </Tooltip>
+          </>
+        )}
 
         {/* Add Connect button for verified mentors */}
         {isMentorVerified && (

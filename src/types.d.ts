@@ -59,6 +59,7 @@ export type ArticleForEdit = {
 export interface ArticleCard
   extends Omit<Article, "subtitle" | "comments" | "likes" | "content"> {
   subContent: string | null;
+  acceptedInvestorsCount?: number; // Added property for tracking accepted investors
   // commonUsers: {
   //   id: string;
   //   image: string | null;

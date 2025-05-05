@@ -11,3 +11,4 @@ export * from "./stripe";
 export * from "./tags";
 export * from "./users";
 export * from "./verifications";
+export * from "./investments";
