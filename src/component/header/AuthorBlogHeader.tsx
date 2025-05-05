@@ -47,6 +47,7 @@ interface Props {
       customTabs: CustomTabs[];
     };
     followers: { id: string }[];
+    stripeSubscriptionStatus?: string;
   };
 }
 
@@ -140,6 +141,9 @@ const AuthorBlogHeader: FC<Props> = ({ user: author }) => {
 
                 <h3 className="text-xl font-semibold text-gray-700 dark:text-text-secondary">
                   {author.name}&apos;s Idea
+                  {author.stripeSubscriptionStatus === "active" && (
+                    <span className="ml-2 px-2 py-1 tracking-wider rounded-md bg-blue-500 text-xs font-semibold text-white">PRO</span>
+                  )}
                 </h3>
               </Link>
             </div>

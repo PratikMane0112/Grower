@@ -15,6 +15,7 @@ import { slugSetting } from "~/utils/constants";
 import generateContent from "~/utils/contentGenerator";
 import { convertToHTML, imageToBlogHandler } from "~/utils/miniFunctions";
 import { useUploadThing } from "~/utils/uploadthing";
+import { useSession } from "next-auth/react";
 
 export type ArticleData = {
   content: DefaultEditorContent;
@@ -70,6 +71,8 @@ const NewArticleBody: FC<{
   article: ArticleForEdit | undefined;
 }> = ({ setPublishModal, publishModal, publishing, setPublishing, article }) => {
   const router = useRouter();
+  const { data: session } = useSession();
+  const isProSubscriber = session?.user?.stripeSubscriptionStatus === "active";
 
   const [contentRendered, setContentRendered] = useState(false);
   const [query, setQuery] = useState("");
@@ -268,16 +271,18 @@ const NewArticleBody: FC<{
 
         <section className="px-2">
           <div className="flex items-center justify-between gap-4">
-            <button
-              onClick={() => void generateContents.title()}
-              className="rounded-md bg-blue-500 p-2"
-            >
-              {generatingContent.title ? (
-                <LoadingSpinner className="h-5 w-5 fill-none stroke-white" />
-              ) : (
-                <Sparkles className="h-5 w-5 stroke-slate-200" />
-              )}
-            </button>
+            {isProSubscriber && (
+              <button
+                onClick={() => void generateContents.title()}
+                className="rounded-md bg-blue-500 p-2"
+              >
+                {generatingContent.title ? (
+                  <LoadingSpinner className="h-5 w-5 fill-none stroke-white" />
+                ) : (
+                  <Sparkles className="h-5 w-5 stroke-slate-200" />
+                )}
+              </button>
+            )}
             <div className="flex-1">
               <Input
                 value={data.title}
@@ -302,16 +307,18 @@ const NewArticleBody: FC<{
             </div>
           </div>
           <div className="flex items-center justify-between gap-4">
-            <button
-              onClick={() => void generateContents.subtitle()}
-              className="rounded-md bg-blue-500 p-2"
-            >
-              {generatingContent.subtitle ? (
-                <LoadingSpinner className="h-5 w-5 fill-none stroke-white" />
-              ) : (
-                <Sparkles className="h-5 w-5 stroke-slate-200" />
-              )}
-            </button>
+            {isProSubscriber && (
+              <button
+                onClick={() => void generateContents.subtitle()}
+                className="rounded-md bg-blue-500 p-2"
+              >
+                {generatingContent.subtitle ? (
+                  <LoadingSpinner className="h-5 w-5 fill-none stroke-white" />
+                ) : (
+                  <Sparkles className="h-5 w-5 stroke-slate-200" />
+                )}
+              </button>
+            )}
             <div className="flex-1">
               <Input
                 value={data.subtitle}
@@ -329,16 +336,18 @@ const NewArticleBody: FC<{
             </div>
           </div>
           <div className="relative flex items-center justify-between">
-            <button
-              onClick={() => void generateContents.content()}
-              className="absolute right-0 top-0 z-40 rounded-md bg-blue-500 p-2"
-            >
-              {generatingContent.content ? (
-                <LoadingSpinner className="h-5 w-5 fill-none stroke-white" />
-              ) : (
-                <Sparkles className="h-5 w-5 stroke-slate-200" />
-              )}
-            </button>
+            {isProSubscriber && (
+              <button
+                onClick={() => void generateContents.content()}
+                className="absolute right-0 top-0 z-40 rounded-md bg-blue-500 p-2"
+              >
+                {generatingContent.content ? (
+                  <LoadingSpinner className="h-5 w-5 fill-none stroke-white" />
+                ) : (
+                  <Sparkles className="h-5 w-5 stroke-slate-200" />
+                )}
+              </button>
+            )}
             <Editor
               contentRendered={contentRendered}
               data={data}

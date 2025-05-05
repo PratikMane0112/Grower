@@ -50,6 +50,9 @@ const ProfileDropdown = forwardRef<
             </div>
             <div className="text-sm text-gray-500 dark:text-text-primary">
               @{user?.user.username}
+              {user?.user.stripeSubscriptionStatus === "active" && (
+                <span className="ml-2 px-2 py-0.5 tracking-wider rounded-md bg-blue-500 text-xs font-semibold text-white">PRO</span>
+              )}
             </div>
           </div>
         </div>
