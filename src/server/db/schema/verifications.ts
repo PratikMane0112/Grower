@@ -19,11 +19,16 @@ export const verificationStatusEnum = pgEnum("verification_status", [
 
 // Document types enumeration
 export const documentTypeEnum = pgEnum("document_type", [
+    // Startup documents
     "dpiit", 
     "gstin", 
     "panCard", 
     "aadhaar", 
-    "otherDoc"
+    "otherDoc",
+    
+    // Investor documents
+    "bankStatement",
+    "investorProof"
 ]);
 
 // Verification documents - stores references to uploaded documents
