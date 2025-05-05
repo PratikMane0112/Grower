@@ -2,41 +2,50 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { BadgeCheck, Upload, FileCheck, BadgeAlert, Info } from "lucide-react";
+import { BadgeCheck, Upload, FileCheck, BadgeAlert, Info, Briefcase, GraduationCap, Award } from "lucide-react";
 import { api } from "~/utils/api";
 
 const Verification = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const isUserStartup = session?.user?.role === "startup";
+  const isUserMentor = session?.user?.role === "mentor";
   const [isVerified, setIsVerified] = useState(false);
   const [isPending, setIsPending] = useState(false);
+  
+  // Define document fields based on user type
   const [selectedFiles, setSelectedFiles] = useState<{
     [key: string]: File | null;
-  }>({
+  }>(isUserMentor ? {
+    resumeCV: null,
+    expertiseCertificate: null,
+    linkedinProfile: null,
+    otherDoc: null,
+  } : {
     dpiit: null,
     gstin: null,
     panCard: null,
     aadhaar: null,
     otherDoc: null,
   });
+  
   const [verificationStatus, setVerificationStatus] = useState("unverified"); // "unverified", "pending", "verified"
 
   // Mock API query - in a real app, we'd fetch the verification status from the backend
   // const { data: verificationData } = api.users.getVerificationStatus.useQuery(
   //   undefined,
   //   {
-  //     enabled: !!isUserStartup,
+  //     enabled: !!(isUserStartup || isUserMentor),
   //     refetchOnWindowFocus: false,
   //   }
   // );
 
-  // Redirect non-startup users away from this page
+  // Redirect users who aren't startups or mentors away from this page
   useEffect(() => {
-    if (session && !isUserStartup) {
+    if (session && !isUserStartup && !isUserMentor) {
       router.push("/settings");
     }
-  }, [session, isUserStartup, router]);
+  }, [session, isUserStartup, isUserMentor, router]);
 
   // Simulate verification check
   useEffect(() => {
@@ -48,8 +57,8 @@ const Verification = () => {
     // }
   }, []);
 
-  // Don't render anything if the user isn't a startup
-  if (!isUserStartup) {
+  // Don't render anything if the user isn't a startup or mentor
+  if (!isUserStartup && !isUserMentor) {
     return null;
   }
 
@@ -86,13 +95,22 @@ const Verification = () => {
     toast.success("Verification documents submitted successfully! Your application is being reviewed.");
 
     // Reset form fields
-    setSelectedFiles({
-      dpiit: null,
-      gstin: null,
-      panCard: null,
-      aadhaar: null,
-      otherDoc: null,
-    });
+    if (isUserMentor) {
+      setSelectedFiles({
+        resumeCV: null,
+        expertiseCertificate: null,
+        linkedinProfile: null,
+        otherDoc: null,
+      });
+    } else {
+      setSelectedFiles({
+        dpiit: null,
+        gstin: null,
+        panCard: null,
+        aadhaar: null,
+        otherDoc: null,
+      });
+    }
   };
 
   if (verificationStatus === "verified") {
@@ -100,7 +118,7 @@ const Verification = () => {
       <>
         <header className="pb-4 border-b border-border-light dark:border-border">
           <h1 className="text-xl font-semibold text-gray-700 dark:text-text-secondary">
-            Startup Verification
+            {isUserMentor ? "Mentor Verification" : "Startup Verification"}
           </h1>
         </header>
 
@@ -108,10 +126,12 @@ const Verification = () => {
           <div className="flex flex-col items-center justify-center bg-green-50 dark:bg-green-900/20 rounded-lg p-6 mb-4">
             <BadgeCheck className="h-16 w-16 text-green-500 mb-4" />
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
-              Your startup is verified!
+              {isUserMentor ? "Your mentor profile is verified!" : "Your startup is verified!"}
             </h2>
             <p className="text-center text-gray-600 dark:text-gray-300 mb-4">
-              Your startup has been verified by our team. Investors and mentors can now engage with your startup with confidence.
+              {isUserMentor 
+                ? "Your mentor profile has been verified by our team. Startups can now engage with you with confidence."
+                : "Your startup has been verified by our team. Investors and mentors can now engage with your startup with confidence."}
             </p>
             <div className="flex items-center text-green-600 dark:text-green-400 text-sm font-medium">
               <BadgeCheck className="h-4 w-4 mr-1" />
@@ -124,22 +144,45 @@ const Verification = () => {
               Benefits of being verified
             </h3>
             <ul className="space-y-2 text-gray-600 dark:text-gray-300">
-              <li className="flex items-start">
-                <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
-                <span>Priority visibility to investors and mentors</span>
-              </li>
-              <li className="flex items-start">
-                <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
-                <span>Verified badge on your profile and posts</span>
-              </li>
-              <li className="flex items-start">
-                <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
-                <span>Access to exclusive networking events</span>
-              </li>
-              <li className="flex items-start">
-                <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
-                <span>Enhanced credibility in the startup community</span>
-              </li>
+              {isUserMentor ? (
+                <>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
+                    <span>Priority visibility to startups looking for mentors</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
+                    <span>Verified badge on your profile and posts</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
+                    <span>Access to exclusive mentor networking events</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
+                    <span>Enhanced credibility in the mentor community</span>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
+                    <span>Priority visibility to investors and mentors</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
+                    <span>Verified badge on your profile and posts</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
+                    <span>Access to exclusive networking events</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0 h-5 w-5 text-green-500 mr-2">✓</div>
+                    <span>Enhanced credibility in the startup community</span>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </section>
@@ -152,7 +195,7 @@ const Verification = () => {
       <>
         <header className="pb-4 border-b border-border-light dark:border-border">
           <h1 className="text-xl font-semibold text-gray-700 dark:text-text-secondary">
-            Startup Verification
+            {isUserMentor ? "Mentor Verification" : "Startup Verification"}
           </h1>
         </header>
 
@@ -188,7 +231,250 @@ const Verification = () => {
     );
   }
 
-  return (
+  // Unverified state - show the appropriate verification form based on user role
+  return isUserMentor ? (
+    // MENTOR VERIFICATION UI
+    <>
+      <header className="pb-4 border-b border-border-light dark:border-border">
+        <h1 className="text-xl font-semibold text-gray-700 dark:text-text-secondary">
+          Mentor Verification
+        </h1>
+      </header>
+
+      <section className="py-6">
+        <div className="bg-light-bg dark:bg-primary-light rounded-lg p-6 mb-6">
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-text-secondary mb-2">
+            Why get verified as a mentor?
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            Verification adds credibility to your mentor profile, making it easier for startups to trust and engage with your expertise. Verified mentors receive priority visibility and additional benefits.
+          </p>
+          
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="border border-border-light dark:border-border rounded-md p-4 bg-white dark:bg-primary">
+              <div className="flex items-center mb-2">
+                <BadgeCheck className="text-gray-600 h-5 w-5 mr-2 dark:text-gray-300" />
+                <h3 className="font-medium dark:text-gray-300">Enhanced Credibility</h3>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Verification badge shows startups you're a trustworthy and qualified mentor
+              </p>
+            </div>
+            <div className="border border-border-light dark:border-border rounded-md p-4 bg-white dark:bg-primary">
+              <div className="flex items-center mb-2">
+                <Award className="text-gray-600 h-5 w-5 mr-2 dark:text-gray-300" />
+                <h3 className="font-medium dark:text-gray-300">Priority Matching</h3>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-300">
+                Verified mentors get priority visibility to startups seeking guidance
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <h2 className="text-lg font-semibold text-gray-700 dark:text-text-secondary mb-4">
+              Upload Verification Documents
+            </h2>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">
+              Please upload at least one document to verify your mentor credentials. Supported formats: PDF, PNG, JPG (max 5MB each)
+            </p>
+
+            <div className="space-y-4">
+              {/* Resume/CV */}
+              <div className="border border-border-light dark:border-border rounded-md p-4">
+                <label className="flex flex-col">
+                  <div className="flex items-center mb-2">
+                    <span className="text-gray-700 dark:text-text-secondary font-medium">
+                      Resume/CV
+                    </span>
+                    <span className="ml-2 text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 py-0.5 px-2 rounded-full">
+                      Recommended
+                    </span>
+                  </div>
+                  <div className="relative mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-border-light dark:border-border rounded-md">
+                    {selectedFiles.resumeCV ? (
+                      <div className="flex items-center space-x-2 text-green-500">
+                        <FileCheck className="h-6 w-6" />
+                        <span>{selectedFiles.resumeCV.name}</span>
+                      </div>
+                    ) : (
+                      <div className="space-y-1 text-center">
+                        <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                        <div className="flex text-sm text-gray-600 dark:text-gray-400">
+                          <label
+                            htmlFor="resumeCV"
+                            className="relative cursor-pointer rounded-md bg-white dark:bg-primary font-medium text-secondary hover:text-primary-dark"
+                          >
+                            <span>Upload a file</span>
+                            <input
+                              id="resumeCV"
+                              name="resumeCV"
+                              type="file"
+                              className="sr-only"
+                              accept=".pdf,.png,.jpg,.jpeg"
+                              onChange={(e) => handleFileChange(e, "resumeCV")}
+                            />
+                          </label>
+                          <p className="pl-1">or drag and drop</p>
+                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          PDF, PNG, JPG up to 5MB
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </label>
+              </div>
+
+              {/* Expertise Certificate */}
+              <div className="border border-border-light dark:border-border rounded-md p-4">
+                <label className="flex flex-col">
+                  <span className="text-gray-700 dark:text-text-secondary font-medium">Professional Certifications</span>
+                  <div className="relative mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-border-light dark:border-border rounded-md">
+                    {selectedFiles.expertiseCertificate ? (
+                      <div className="flex items-center space-x-2 text-green-500">
+                        <FileCheck className="h-6 w-6" />
+                        <span>{selectedFiles.expertiseCertificate.name}</span>
+                      </div>
+                    ) : (
+                      <div className="space-y-1 text-center">
+                        <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                        <div className="flex text-sm text-gray-600 dark:text-gray-400">
+                          <label
+                            htmlFor="expertiseCertificate"
+                            className="relative cursor-pointer rounded-md bg-white dark:bg-primary font-medium text-secondary hover:text-primary-dark"
+                          >
+                            <span>Upload a file</span>
+                            <input
+                              id="expertiseCertificate"
+                              name="expertiseCertificate"
+                              type="file"
+                              className="sr-only"
+                              accept=".pdf,.png,.jpg,.jpeg"
+                              onChange={(e) => handleFileChange(e, "expertiseCertificate")}
+                            />
+                          </label>
+                          <p className="pl-1">or drag and drop</p>
+                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          PDF, PNG, JPG up to 5MB
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </label>
+              </div>
+
+              {/* LinkedIn Profile Screenshot */}
+              <div className="border border-border-light dark:border-border rounded-md p-4">
+                <label className="flex flex-col">
+                  <span className="text-gray-700 dark:text-text-secondary font-medium">LinkedIn Profile Screenshot</span>
+                  <div className="relative mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-border-light dark:border-border rounded-md">
+                    {selectedFiles.linkedinProfile ? (
+                      <div className="flex items-center space-x-2 text-green-500">
+                        <FileCheck className="h-6 w-6" />
+                        <span>{selectedFiles.linkedinProfile.name}</span>
+                      </div>
+                    ) : (
+                      <div className="space-y-1 text-center">
+                        <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                        <div className="flex text-sm text-gray-600 dark:text-gray-400">
+                          <label
+                            htmlFor="linkedinProfile"
+                            className="relative cursor-pointer rounded-md bg-white dark:bg-primary font-medium text-secondary hover:text-primary-dark"
+                          >
+                            <span>Upload a file</span>
+                            <input
+                              id="linkedinProfile"
+                              name="linkedinProfile"
+                              type="file"
+                              className="sr-only"
+                              accept=".pdf,.png,.jpg,.jpeg"
+                              onChange={(e) => handleFileChange(e, "linkedinProfile")}
+                            />
+                          </label>
+                          <p className="pl-1">or drag and drop</p>
+                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          PDF, PNG, JPG up to 5MB
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </label>
+              </div>
+
+              {/* Other Document */}
+              <div className="border border-border-light dark:border-border rounded-md p-4">
+                <label className="flex flex-col">
+                  <span className="text-gray-700 dark:text-text-secondary font-medium">
+                    Other Supporting Document (Optional)
+                  </span>
+                  <div className="relative mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed border-border-light dark:border-border rounded-md">
+                    {selectedFiles.otherDoc ? (
+                      <div className="flex items-center space-x-2 text-green-500">
+                        <FileCheck className="h-6 w-6" />
+                        <span>{selectedFiles.otherDoc.name}</span>
+                      </div>
+                    ) : (
+                      <div className="space-y-1 text-center">
+                        <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                        <div className="flex text-sm text-gray-600 dark:text-gray-400">
+                          <label
+                            htmlFor="otherDoc"
+                            className="relative cursor-pointer rounded-md bg-white dark:bg-primary font-medium text-secondary hover:text-primary-dark"
+                          >
+                            <span>Upload a file</span>
+                            <input
+                              id="otherDoc"
+                              name="otherDoc"
+                              type="file"
+                              className="sr-only"
+                              accept=".pdf,.png,.jpg,.jpeg"
+                              onChange={(e) => handleFileChange(e, "otherDoc")}
+                            />
+                          </label>
+                          <p className="pl-1">or drag and drop</p>
+                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          PDF, PNG, JPG up to 5MB
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-400 p-4 mt-4">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <Info className="h-5 w-5 text-blue-400" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-blue-700 dark:text-blue-200">
+                  Your documents will be reviewed by our team within 2-3 business days. You'll be notified when your mentor profile is verified.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-4 flex justify-end">
+            <button
+              type="submit"
+              className="btn-filled px-6 py-2"
+            >
+              Submit for Verification
+            </button>
+          </div>
+        </form>
+      </section>
+    </>
+  ) : (
+    // STARTUP VERIFICATION UI (existing code)
     <>
       <header className="pb-4 border-b border-border-light dark:border-border">
         <h1 className="text-xl font-semibold text-gray-700 dark:text-text-secondary">

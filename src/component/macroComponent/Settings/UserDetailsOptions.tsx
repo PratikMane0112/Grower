@@ -7,6 +7,7 @@ const UserDetailsOptions = () => {
   const { tab } = useRouter().query;
   const { data: session } = useSession();
   const isUserStartup = session?.user?.role === "startup";
+  const isUserMentor = session?.user?.role === "mentor";
 
   return (
     <div className="rounded-md border py-2 border-border-light bg-white dark:border-border dark:bg-primary">
@@ -52,8 +53,8 @@ const UserDetailsOptions = () => {
           </li>
         )}
         
-        {/* Add Verification option for startup users */}
-        {isUserStartup && (
+        {/* Add Verification option for startup and mentor users */}
+        {(isUserStartup || isUserMentor) && (
           <li className="w-full">
             <Link href="/settings/verification">
               <div className={`cursor-pointer px-4 py-3 text-base font-semibold hover:bg-gray-200 dark:hover:bg-border flex flex-row items-center gap-2 ${tab?.length === 1 && tab[0] === "verification" ? "text-secondary" : " text-gray-600 dark:text-text-primary"}`}>

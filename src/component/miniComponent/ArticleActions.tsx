@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import React, { useContext, useEffect, useState, type FC } from "react";
 import { toast } from "react-toastify";
 
-import { Bookmark, BookmarkMinus, Heart, MessageCircle, MoreVertical, Share2 } from "lucide-react";
+import { Bookmark, BookmarkMinus, Heart, MessageCircle, MoreVertical, Share2, UserPlus } from "lucide-react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import { C } from "~/utils/context";
@@ -29,8 +29,10 @@ interface Props {
       username: string,
       image: string,
       name: string,
+      id: string,
     },
-  }; setCommentsModal: React.Dispatch<React.SetStateAction<boolean>>;
+  }; 
+  setCommentsModal: React.Dispatch<React.SetStateAction<boolean>>;
   commentsCount: number;
 }
 
@@ -39,6 +41,7 @@ const ArticleActions: FC<Props> = ({
   commentsCount,
   setCommentsModal,
 }) => {
+  const router = useRouter();
   const [shareOpen, setShareOpen] = useState(false);
   const [control, setControl] = useState<HTMLDivElement | null>(null);
   const [dropdown, setDropdown] = useState<HTMLDivElement | null>(null);
@@ -64,6 +67,9 @@ const ArticleActions: FC<Props> = ({
     hasLiked: false,
     likesCount: article.likesCount,
   });
+
+  // Check if the current user is a verified mentor
+  const isMentorVerified = user?.user.role === "mentor" && user?.user.verified === true;
 
   const { data } = api.likes.likeState.useQuery(
     {
@@ -103,6 +109,17 @@ const ArticleActions: FC<Props> = ({
         toast.error(error.message);
       }
     }
+  };
+
+  // Function to handle connection with author
+  const handleConnect = () => {
+    if (!user?.user.id) {
+      toast.error("You need to be logged in to connect");
+      return;
+    }
+    
+    // Navigate to the author's profile page
+    void router.push(`/u/@${article.user.username}`);
   };
 
   return (
@@ -158,6 +175,27 @@ const ArticleActions: FC<Props> = ({
             <span>{commentsCount}</span>
           </button>
         </Tooltip>
+
+        {/* Add Connect button for verified mentors */}
+        {isMentorVerified && (
+          <>
+            <div className="h-6 w-[2px] bg-border-light dark:bg-border" />
+            
+            <Tooltip label="Connect with author" withArrow>
+              <button
+                aria-label="Connect with author"
+                role="button"
+                onClick={handleConnect}
+                className="flex items-center gap-2 rounded-full p-2 text-gray-700 hover:bg-text-secondary dark:text-text-secondary dark:hover:bg-border"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <UserPlus className="h-5 w-5 fill-none stroke-border dark:stroke-text-primary md:h-6 md:w-6" />
+                </div>
+                <span>Connect</span>
+              </button>
+            </Tooltip>
+          </>
+        )}
 
         <div className="h-6 w-[2px] bg-border-light dark:bg-border" />
 
@@ -351,7 +389,8 @@ const MoreOptions = React.forwardRef<
           </li>
         ))}
       </ul>
-    </div>)
+    </div>
+  );
 });
 
 MoreOptions.displayName = "MoreOptions";
