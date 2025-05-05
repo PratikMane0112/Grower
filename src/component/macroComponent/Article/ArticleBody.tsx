@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { Balancer } from "react-wrap-balancer";
 import RemoveMarkdown from "remove-markdown";
 import { ArticleActions, StackedArticleLoading } from "~/component";
+import { ArticlePredictionSection } from "~/component/predictions";
 import CommentsModal from "~/component/popup/CommentsModal";
 import { FollowContext } from "~/pages/u/[username]/[slug]";
 import { api } from "~/utils/api";
@@ -176,7 +177,26 @@ const ArticleBody: FC<{
           </div>
 
           <ArticleActions
-            article={article}
+            article={{
+              id: article.id,
+              title: article.title,
+              subtitle: article.subtitle,
+              slug: article.slug,
+              cover_image: article.cover_image,
+              disabledComments: article.disabledComments,
+              readCount: article.readCount,
+              likesCount: article.likesCount,
+              commentsCount: article.commentsCount,
+              createdAt: article.createdAt,
+              content: article.content,
+              read_time: article.read_time,
+              user: {
+                username: article.user.username,
+                image: article.user.image,
+                name: article.user.name,
+                id: user.id,
+              },
+            }}
             setCommentsModal={setCommentsModal}
             commentsCount={commentsCount}
           />
@@ -210,6 +230,8 @@ const ArticleBody: FC<{
           {article.seriesId && (
             <SeriesSection slug={article.slug} />
           )}
+
+          <ArticlePredictionSection articleId={article.id} />
         </section>
       </div>
     </main>

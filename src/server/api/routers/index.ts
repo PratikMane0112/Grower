@@ -8,3 +8,4 @@ export { seriesRouter } from "./series";
 export { stripeRouter } from "./stripe";
 export { tagsRouter } from "./tags";
 export { usersRouter } from "./users";
+export { predictionsRouter } from "./predictions";

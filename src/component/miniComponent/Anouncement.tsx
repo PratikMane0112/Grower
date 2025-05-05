@@ -16,7 +16,7 @@ const Anouncement = () => {
       </header>
 
       <p className="mb-5 text-sm text-gray-700 dark:text-text-secondary sm:text-base">
-        Level up your publishing experience with Grower Pro with powerful AI
+        Level up your experience with Grower Pro with powerful AI
         and premium features.
       </p>
 
