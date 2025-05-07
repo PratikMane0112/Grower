@@ -81,6 +81,9 @@ export const fileRouter = {
     }),
 } satisfies FileRouter;
 
+// Export as ourFileRouter to match the import in the API route
+export const ourFileRouter = fileRouter;
+
 export type OurFileRouter = typeof fileRouter;
 
 // Export utapi instance that provides the right methods
