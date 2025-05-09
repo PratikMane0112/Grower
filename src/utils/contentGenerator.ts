@@ -55,7 +55,7 @@ const generateContent = async ({
   } catch (error) {
     console.error("Error generating content:", error);
     // Fallback message in case of API errors
-    if (type === "TITLE") return "New Article Title";
+    if (type === "TITLE") return "New Idea Title";
     if (type === "SUBTITLE") return "A subtitle for your article";
     return "<p>Unable to generate content. Please try writing your own or try again later.</p>";
   }

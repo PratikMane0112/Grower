@@ -79,16 +79,16 @@ export const asideItems = (session?: Session | null) => {
   }
   
   // Only add Mentors item if user is logged in and has startup role
-  if (session?.user?.role === "startup") {
-    baseItems.push({
-      name: "Mentors",
-      icon: (
-        <User className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
-      ),
-      href: "#",
-      type: "link",
-    });
-  }
+  // if (session?.user?.role === "startup") {
+  //   baseItems.push({
+  //     name: "Mentors",
+  //     icon: (
+  //       <User className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
+  //     ),
+  //     href: "#",
+  //     type: "link",
+  //   });
+  // }
   
   return baseItems;
 };
@@ -550,7 +550,7 @@ export const articleimageDropdownList = [
     danger: false,
   },
   {
-    name: "New Article",
+    name: "New IDEA",
     icon: (
       <Pencil className="h-4 w-4 stroke-gray-700 dark:stroke-text-secondary" />
     ),

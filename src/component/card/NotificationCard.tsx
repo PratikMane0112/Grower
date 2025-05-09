@@ -35,7 +35,7 @@ const NotificationCard: FC<{ notification: Notification }> = ({
             : notification.type === "LIKE"
               ? "liked your article"
               : notification.type === "ARTICLE"
-                ? "published a new article"
+                ? "published a new idea"
                 : "followed you"}
         </p>
 
